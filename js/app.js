@@ -10,28 +10,33 @@ App.IndexRoute = Ember.Route.extend({
   }
 });
 
-function normalizeChartData(pollData) {
-  var chartData = [];
-  for(var i = 0; i < pollData.length; i++) {
-    var poll = pollData[i];
-    chartData.push({ label: poll.question, value: poll.votes });
+var getTotalVotes = function (polls) {
+  var qtdeTotalVotes = 0;
+  for(var i= 0; i < polls.length; i ++){
+     qtdeTotalVotes += polls[i].votes;
   }
-  return chartData;
+  return  qtdeTotalVotes;
 }
 
+
 App.IndexController = Ember.ArrayController.extend({
-  chartData: null,
+  chartData: function() {
+    var quantidadeVotes = getTotalVotes(this.get("model"));
+    return this.get("model").map(function(poll) {
+      var percentualVotes = (poll.votes / quantidadeVotes) * 100;
+      return { label: poll.question, value: percentualVotes };
+    });
+  }.property("model"),
 	currentPartial: "poll_question",
   actions: {
     doVote: function() {
     	var controller = this;
     	var poll = this.selectedItem;
-      if(!poll) return alert('Selecione uma opção!')
+      if(!poll) return alert('Selecione uma opção!');
 
       Ember.$.ajax({type: 'PUT', url: 'http://localhost:3000/polls/' + poll.id + '/vote', headers: { 'Content-type': 'application/json'}})
 	    	.success(function(polls, status, xhr) {
     		  controller.set("model", polls);
-          controller.set("chartData", normalizeChartData(polls));
     		  controller.set("currentPartial", "poll_result");
     		  //alert('Obrigado por votar!');
 	      })
