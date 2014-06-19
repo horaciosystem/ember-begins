@@ -13,10 +13,24 @@
     {{outlet}}
   </script>
 
-  <script type="text/x-handlebars" id="index">  
+  <script type="text/x-handlebars" id="index">
+    {{partial currentPartial}}
+  </script>
+
+  <script type="text/x-handlebars" id="_poll_result">
+    <h3>Resultado:</h3>
     {{#each item in model}}
       <li>       
-        <input name='selected' type='radio' {{action "selectItem" item}}> {{item.question}}
+        {{item.question}} : {{item.votes}}
+      </li>
+    {{/each}}
+  </script>
+
+  <script type="text/x-handlebars" id="_poll_question">
+    {{#each item in model}}
+      <li>
+        {{radio-button value=item name="selected" selection=selectedItem}}
+        {{item.question}}
       </li>
     {{/each}}
     <p>
@@ -24,14 +38,7 @@
     </p>
   </script>
   
-  <script type="text/x-handlebars" id="result">  
-    {{#each item in model}}
-      <li>       
-        <input name='selected' type='radio'> {{item.votes}}
-      </li>
-    {{/each}}
-  </script>
-
+  
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-1.1.2.js"></script>
   <script src="js/libs/ember-1.5.1.js"></script>
