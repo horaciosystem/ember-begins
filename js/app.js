@@ -22,7 +22,7 @@ App.IndexController = Ember.ArrayController.extend({
 	    	.success(function(polls, status, xhr) {
     		  controller.set("model", polls);
     		  controller.set("currentPartial", "poll_result");
-    		  alert('Obrigado por votar!');
+    		  //alert('Obrigado por votar!');
 	      })
 	      .error(function(data, status, xhr) {
 	        alert('Ops :( Houve um erro durante a votação! Tente mais tarde.');

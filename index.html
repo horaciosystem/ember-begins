@@ -5,11 +5,12 @@
   <title>Ember Starter Kit</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/ember-charts.css">
 </head>
 <body>
   <script type="text/x-handlebars">    
-    <h2>Enquete do Diogo</h2>
-
+    <h3>Enquete do Diogo</h3>
+    <h2>O que você prefere ?</h2>
     {{outlet}}
   </script>
 
@@ -18,7 +19,6 @@
   </script>
 
   <script type="text/x-handlebars" id="_poll_result">
-    <h3>Resultado:</h3>
     {{#each item in model}}
       <li>       
         {{item.question}} : {{item.votes}}
@@ -34,7 +34,7 @@
       </li>
     {{/each}}
     <p>
-      <button {{action "doVote"}}>Vote</button>
+      <button {{action "doVote"}}>Votar</button>
     </p>
   </script>
   
@@ -42,6 +42,7 @@
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-1.1.2.js"></script>
   <script src="js/libs/ember-1.5.1.js"></script>
+  <script src="js/libs/ember-charts.js"></script>
   <script src="js/app.js"></script>  
 </body>
 </html>

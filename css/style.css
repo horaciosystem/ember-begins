@@ -2,3 +2,131 @@
 .ember-application {
     margin: 20px;
 }
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}
+h1, h2, h3 {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+	color: #3E3530;
+}
+h1 {
+	font-size: 1em;
+}
+h2 {
+	display: block;
+	font-size: 1.5em;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 5px;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	font-weight: bold;
+}
+h3 {
+	display: block;
+	font-size: 2em;
+	-webkit-margin-before: 0.5em;
+	-webkit-margin-after: 0.5em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	font-weight: bold;
+	color: #d14242;
+}
+p, ul, ol {
+	margin-top: 5;
+	line-height: 180%;
+}
+button {
+	-webkit-transition: 0.2s;
+	-moz-transition: 0.2s;
+	transition: 0.2s;
+	background-color: #d14242;
+	border-bottom: 2px solid #b42c2c;
+	border-radius: 3px;
+	color: white !important;
+	cursor: pointer;
+	display: inline-block;
+	font-weight: bold;
+	padding: 0.5em;
+	text-align: center;
+	text-decoration: none;
+	border: none;
+	line-height: 1em;
+	margin: 0;
+	outline: none;
+	padding: 0;
+	min-height: 29px;
+	min-width: 65px;
+}
+button:hover{
+	background-color: #f25b5b;
+}
+
+p {
+	display: block;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+}
+
+input[type='radio'] {
+	color: #c8c8c8;
+	border: none;
+	line-height: 1em;
+	margin: 0;
+	outline: none;
+	padding: 0;
+	color: #c8c8c8;
+	border-radius: 100%;
+	color: transparent;
+	content: "\25cf";
+	font-family: sans-serif;
+	font-size: 21px;
+	height: 22px;
+	line-height: .96em;
+	width: 22px;
+
+	background: #eeeeee;	
+	content: "";
+	display: inline-block;
+	margin-right: .4em;
+	text-align: center;
+	transition: .25s;
+	vertical-align: middle;	
+
+	
+}
+input[type='radio']:disabled {
+	opacity: .75;
+}
+input[type='radio']:not(:disabled):not(:active):hover {
+	background: -webkit-linear-gradient(#fff, #e6e6e6);
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+}
+input[type='radio']:not(:disabled):active {
+	/*-webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);
+	background: -webkit-linear-gradient(#f0f0f0, #bebebe);
+	border: 1px solid #808080;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, .25);*/
+}
+input[type='radio']:checked::before {
+	border-radius: 100%;
+	color: transparent;
+	content: "\25cf";
+	font-family: sans-serif;
+	font-size: 21px;
+	height: 22px;
+	line-height: .96em;
+	width: 22px;
+}
+
+input[type='radio']:active:checked::before {
+	color: #c8c8c8;
+}
+body li {
+	list-style: none;
+}
