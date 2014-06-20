@@ -26,14 +26,14 @@ App.IndexController = Ember.ArrayController.extend({
 	      })
 	      .error(function(data, status, xhr) {
 	        alert('Ops :( Houve um erro durante a votação! Tente mais tarde.');
-	      });   
+	     });   
     }
   }
 });
 
 App.RadioButton = Ember.Component.extend({
     tagName : "input",
-    type : "radio",
+    type : "radio",    
     attributeBindings : [ "name", "type", "value", "checked:checked" ],
     click : function() {
         this.set("selection", this.get("value"));
