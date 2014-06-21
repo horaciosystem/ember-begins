@@ -10,7 +10,17 @@ App.IndexRoute = Ember.Route.extend({
   }
 });
 
+function normalizeChartData(pollData) {
+  var chartData = [];
+  for(var i = 0; i < pollData.length; i++) {
+    var poll = pollData[i];
+    chartData.push({ label: poll.question, value: poll.votes });
+  }
+  return chartData;
+}
+
 App.IndexController = Ember.ArrayController.extend({
+  chartData: null,
 	currentPartial: "poll_question",
   actions: {
     doVote: function() {
@@ -21,6 +31,7 @@ App.IndexController = Ember.ArrayController.extend({
       Ember.$.ajax({type: 'PUT', url: 'http://localhost:3000/polls/' + poll.id + '/vote', headers: { 'Content-type': 'application/json'}})
 	    	.success(function(polls, status, xhr) {
     		  controller.set("model", polls);
+          controller.set("chartData", normalizeChartData(polls));
     		  controller.set("currentPartial", "poll_result");
     		  //alert('Obrigado por votar!');
 	      })
@@ -44,3 +55,8 @@ App.RadioButton = Ember.Component.extend({
 });
 
 Em.Handlebars.helper('radio-button',App.RadioButton);
+
+Em.Handlebars.registerHelper('json', function(path, options) {
+  var obj = Em.Handlebars.get(this, path, options);
+  return JSON.stringify(obj);
+});

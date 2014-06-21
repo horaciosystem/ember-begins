@@ -23,18 +23,21 @@
         {{outlet}}    
       </div>
     </div>
+
+    <div id="graph2" style="height: 300px"></div>
   </script>
 
   <script type="text/x-handlebars" id="index">
     {{partial currentPartial}}
   </script>
 
-  <script type="text/x-handlebars" id="_poll_result">
-    {{#each item in model}}
-      <li>       
-        {{item.question}} : {{item.votes}}
-      </li>
-    {{/each}}            
+  <script type="text/x-handlebars" id="_poll_result">      
+    {{horizontal-bar-chart
+      minBarThickness=20
+      maxBarThickness=20
+      selectedSeedColor="gray"
+      data=chartData
+    }}
   </script>
 
   <script type="text/x-handlebars" id="_poll_question">
@@ -52,8 +55,10 @@
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-1.1.2.js"></script>
   <script src="js/libs/ember-1.5.1.js"></script>
-  <script src="js/libs/ember-charts.js"></script>  
-  <script src="js/libs/highcharts.js"></script> 
+  <script src="js/libs/d3.js"></script> 
+  <script src="js/libs/ember-addepar-mixins/resize_handler.js"></script> 
+  <script src="js/libs/ember-addepar-mixins/style_bindings.js"></script> 
+  <script src="js/libs/ember-charts.js"></script> 
   <script src="js/libs/bootstrap.min.js"></script>
   <script src="js/app.js"></script>  
 </body>
