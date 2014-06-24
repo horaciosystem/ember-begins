@@ -10,13 +10,29 @@ App.IndexRoute = Ember.Route.extend({
   }
 });
 
+var getTotalVotes = function (polls) {
+  var qtdeTotalVotes = 0;
+  for(var i= 0; i < polls.length; i ++){
+     qtdeTotalVotes += polls[i].votes;
+  }
+  return  qtdeTotalVotes;
+}
+
+
 App.IndexController = Ember.ArrayController.extend({
+  chartData: function() {
+    var quantidadeVotes = getTotalVotes(this.get("model"));
+    return this.get("model").map(function(poll) {
+      var percentualVotes = (poll.votes / quantidadeVotes) * 100;
+      return { label: poll.question, value: percentualVotes };
+    });
+  }.property("model"),
 	currentPartial: "poll_question",
   actions: {
     doVote: function() {
     	var controller = this;
     	var poll = this.selectedItem;
-      if(!poll) return alert('Selecione uma opção!')
+      if(!poll) return alert('Selecione uma opção!');
 
       Ember.$.ajax({type: 'PUT', url: 'http://localhost:3000/polls/' + poll.id + '/vote', headers: { 'Content-type': 'application/json'}})
 	    	.success(function(polls, status, xhr) {
@@ -26,14 +42,14 @@ App.IndexController = Ember.ArrayController.extend({
 	      })
 	      .error(function(data, status, xhr) {
 	        alert('Ops :( Houve um erro durante a votação! Tente mais tarde.');
-	      });   
+	     });   
     }
   }
 });
 
 App.RadioButton = Ember.Component.extend({
     tagName : "input",
-    type : "radio",
+    type : "radio",    
     attributeBindings : [ "name", "type", "value", "checked:checked" ],
     click : function() {
         this.set("selection", this.get("value"));
@@ -44,3 +60,8 @@ App.RadioButton = Ember.Component.extend({
 });
 
 Em.Handlebars.helper('radio-button',App.RadioButton);
+
+Em.Handlebars.registerHelper('json', function(path, options) {
+  var obj = Em.Handlebars.get(this, path, options);
+  return JSON.stringify(obj);
+});
