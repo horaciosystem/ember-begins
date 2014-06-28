@@ -1,3 +1,2 @@
-Project have this name, because is my first contact with EmberJs framework.
-This project are de front-end part of the Poll SPA app.
-
+The project have this name, because is my first contact with Ember Js framework.
+This project is a front-end part of the Diogo Poll SPA app.

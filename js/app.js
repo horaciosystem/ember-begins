@@ -10,39 +10,34 @@ App.IndexRoute = Ember.Route.extend({
   }
 });
 
-var getTotalVotes = function (polls) {
-  var qtdeTotalVotes = 0;
-  for(var i= 0; i < polls.length; i ++){
-     qtdeTotalVotes += polls[i].votes;
-  }
-  return  qtdeTotalVotes;
-}
-
-
 App.IndexController = Ember.ArrayController.extend({
+  sumTotalVotes: function() {
+    return this.get("model").mapBy("votes").
+      reduce(function(totalVotes, value){ return totalVotes + value;});
+  }.property("model"),
   chartData: function() {
-    var quantidadeVotes = getTotalVotes(this.get("model"));
+    var totalVotes = this.get("sumTotalVotes");
     return this.get("model").map(function(poll) {
-      var percentualVotes = (poll.votes / quantidadeVotes) * 100;
+      var percentualVotes = poll.votes / totalVotes * 100;
       return { label: poll.question, value: percentualVotes };
     });
   }.property("model"),
-	currentPartial: "poll_question",
+  currentPartial: "poll_question",
   actions: {
     doVote: function() {
-    	var controller = this;
-    	var poll = this.selectedItem;
+      var controller = this;
+      var poll = this.selectedItem;
       if(!poll) return alert('Selecione uma opção!');
 
       Ember.$.ajax({type: 'PUT', url: 'http://localhost:3000/polls/' + poll.id + '/vote', headers: { 'Content-type': 'application/json'}})
-	    	.success(function(polls, status, xhr) {
-    		  controller.set("model", polls);
-    		  controller.set("currentPartial", "poll_result");
-    		  //alert('Obrigado por votar!');
-	      })
-	      .error(function(data, status, xhr) {
-	        alert('Ops :( Houve um erro durante a votação! Tente mais tarde.');
-	     });   
+        .success(function(polls, status, xhr) {
+          controller.set("model", polls);
+          controller.set("currentPartial", "poll_result");
+          //alert('Obrigado por votar!');
+        })
+        .error(function(data, status, xhr) {
+          alert('Ops :( Houve um erro durante a votação! Tente mais tarde.');
+       });   
     }
   }
 });
